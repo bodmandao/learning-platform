@@ -1,85 +1,49 @@
-# icp_rust_message_board_contract
+# Course Contract
 
-### Requirements
-* rustc 1.64 or higher
-```bash
-$ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
-$ source "$HOME/.cargo/env"
-```
-* rust wasm32-unknown-unknown target
-```bash
-$ rustup target add wasm32-unknown-unknown
-```
-* candid-extractor
-```bash
-$ cargo install candid-extractor
-```
-* install `dfx`
-```bash
-$ DFX_VERSION=0.15.0 sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
-$ echo 'export PATH="$PATH:$HOME/bin"' >> "$HOME/.bashrc"
-$ source ~/.bashrc
-$ dfx start --background
-```
+This Rust-based Internet Computer (IC) canister provides functionality for managing courses. It allows you to create, update, retrieve, and delete course information. The contract is built using the DFINITY Canister SDK.
 
-If you want to start working on your project right away, you might want to try the following commands:
+## Prerequisites
 
-```bash
-$ cd icp_rust_boilerplate/
-$ dfx help
-$ dfx canister --help
-```
+Ensure that you have the DFINITY Canister SDK installed. If not, you can find installation instructions [here](https://sdk.dfinity.org/docs/quickstart/quickstart-intro.html).
 
-## Update dependencies
+## Usage
 
-update the `dependencies` block in `/src/{canister_name}/Cargo.toml`:
-```
-[dependencies]
-candid = "0.9.9"
-ic-cdk = "0.11.1"
-serde = { version = "1", features = ["derive"] }
-serde_json = "1.0"
-ic-stable-structures = { git = "https://github.com/lwshang/stable-structures.git", branch = "lwshang/update_cdk"}
-```
+### Core Functions 
 
-## did autogenerate
+1. `create_course`: Create a new course on the platform.
+2. `edit_course`: Edit existing courses (title, description, instructor).
+3. `delete_course`: Delete a course from the platform.
+4. `get_course_by_id`: Retrieve a specific course by its unique ID.
+5. `get_all_courses`: Retrieve all courses available on the platform.
+6. `create_user`: Create a new user account on the platform.
+7. `edit_user`: Edit user details (name, email).
+8. `delete_user`: Delete a user account from the platform.
+9. `enroll_in_course`: Enroll in a specific course.
 
-Add this script to the root directory of the project:
-```
-https://github.com/buildwithjuno/juno/blob/main/scripts/did.sh
-```
+### Query Functions
 
-Update line 16 with the name of your canister:
-```
-https://github.com/buildwithjuno/juno/blob/main/scripts/did.sh#L16
-```
+1. `get_user_by_id`: Retrieve user information by ID.
+2. `get_all_users`: Retrieve all users on the platform.
+3. `get_enrolled_courses`: Retrieve courses enrolled by a specific user.
+4. `get_instructor_courses`: Retrieve courses taught by a specific instructor.
 
-After this run this script to generate Candid.
-Important note!
+### Error Handling
 
-You should run this script each time you modify/add/remove exported functions of the canister.
-Otherwise, you'll have to modify the candid file manually.
+- **Error:** Enum for handling various error scenarios, including not found, invalid payload, unauthorized access, and enrollment limits.
 
-Also, you can add package json with this content:
-```
-{
-    "scripts": {
-        "generate": "./did.sh && dfx generate",
-        "gen-deploy": "./did.sh && dfx generate && dfx deploy -y"
-      }
-}
-```
+### Candid Interface
 
-and use commands `npm run generate` to generate candid or `npm run gen-deploy` to generate candid and to deploy a canister.
+- Exported Candid interface for seamless interaction with the Internet Computer.
 
-## Running the project locally
+## More
 
-If you want to test your project locally, you can use the following commands:
+To get started, explore the project directory structure and the default configuration file. For detailed Rust programming language documentation, refer to [Rust Documentation](https://doc.rust-lang.org/book/).
 
-```bash
-# Starts the replica, running in the background
-$ dfx start --background
+For Internet Computer-specific information:
 
-# Deploys your canisters to the replica and generates your candid interface
-$ dfx deploy
-```
+- [Internet Computer SDK Developer Tools](https://sdk.dfinity.org/docs/quick-start/quick-start-intro.html)
+- [IC-CDK Documentation](https://github.com/dfinity/cdk-rs)
+- [Candid Introduction](https://sdk.dfinity.org/docs/candid-guide/candid-intro.html)
+
+
+
