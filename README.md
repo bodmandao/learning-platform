@@ -1,6 +1,6 @@
-# Course Contract
+# Learning Platform
 
-This Rust-based Internet Computer (IC) canister provides functionality for managing courses. It allows you to create, update, retrieve, and delete course information. The contract is built using the DFINITY Canister SDK.
+This Learning Platform is designed to facilitate decentralized learning on the Internet Computer. This Rust-based contract enables the creation, management, and enrollment in courses within a decentralized environment. It leverages the capabilities of the Internet Computer to handle user accounts, course storage, and enrollment transactions. Key features include user account creation, course creation, enrollment management, and comprehensive query functions for user and course details.
 
 ## Prerequisites
 
