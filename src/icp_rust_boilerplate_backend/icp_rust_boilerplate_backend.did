@@ -1,3 +1,21 @@
+type Course = record {
+  id : nat64;
+  instructor : text;
+  name : text;
+  enrolled_students : nat64;
+  capacity : nat64;
+};
+type CoursePayload = record {
+  instructor : text;
+  name : text;
+  capacity : nat64;
+};
+type Result = variant { Ok : Course; Err : text };
 service : {
-    "greet": (text) -> (text) query;
+  create_course : (CoursePayload) -> (Result);
+  enroll_student : (nat64) -> (Result);
+  get_average_enrollment_rate : () -> (float64) query;
+  get_courses_by_instructor : (text) -> (vec Course) query;
+  get_courses_with_available_slots : () -> (vec Course) query;
+  get_full_capacity_courses : () -> (vec Course) query;
 }
