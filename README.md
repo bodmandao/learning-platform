@@ -4,8 +4,6 @@ This is a simple lottery application running on the Internet Computer (ICP). It 
 
 ## Features
 
-### 1. Buy Lottery Ticket
-
 #### Function Signature
 ```rust
 #[ic_cdk::update]
