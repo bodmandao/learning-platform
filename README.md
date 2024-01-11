@@ -1,76 +1,56 @@
-# icp_rust_message_board_contract
+# ICP Lottery App
 
-### Requirements
-* rustc 1.64 or higher
+This is a simple lottery application running on the Internet Computer (ICP). It allows users to buy lottery tickets, conduct lottery draws, participate in draws, and query information about tickets and draws.
+
+## Features
+
+### 1. Buy Lottery Ticket
+
+#### Function Signature
+```rust
+#[ic_cdk::update]
+fn buy_lottery_ticket(owner: String, numbers: Vec<u32>) -> Result<LotteryTicket, LotteryError>
+```
+This function allows users can purchase a lottery ticket.
+
+```rust
+#[ic_cdk::query]
+fn check_lottery_ticket(id: u64) -> Result<LotteryTicket, LotteryError>
+```
+This function allows users to check the details of a purchased lottery ticket by providing its ID.
+If the ticket with the specified ID is found, its details are returned. Otherwise, a NotFound error is returned.
+
+```rust
+#[ic_cdk::update]
+fn conduct_lottery_draw(winning_numbers: Vec<u32>) -> Result<LotteryDraw, LotteryError>
+```
+This function conducts a lottery draw by providing the winning numbers.
+
+```rust
+#[ic_cdk::update]
+fn participate_in_lottery_draw(ticket_id: u64, draw_id: u64) -> Result<LotteryDraw, LotteryError>
+```
+This function allows a user to participate in a specific lottery draw by providing the IDs of their purchased ticket and the target draw.
+
+```rust
+#[ic_cdk::query]
+fn get_all_lottery_tickets() -> Result<Vec<LotteryTicket>, LotteryError>
+```
+This function retrieves a list of all purchased lottery tickets.
+
+```rust
+#[ic_cdk::query]
+fn get_all_lottery_draws() -> Result<Vec<LotteryDraw>, LotteryError>
+```
+This function retrieves a list of all conducted lottery draws.
+
+You can run the following commands to start working on it :
+
 ```bash
-$ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
-$ source "$HOME/.cargo/env"
+cd icp-lottery/
+dfx help
+dfx canister --help
 ```
-* rust wasm32-unknown-unknown target
-```bash
-$ rustup target add wasm32-unknown-unknown
-```
-* candid-extractor
-```bash
-$ cargo install candid-extractor
-```
-* install `dfx`
-```bash
-$ DFX_VERSION=0.15.0 sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
-$ echo 'export PATH="$PATH:$HOME/bin"' >> "$HOME/.bashrc"
-$ source ~/.bashrc
-$ dfx start --background
-```
-
-If you want to start working on your project right away, you might want to try the following commands:
-
-```bash
-$ cd icp_rust_boilerplate/
-$ dfx help
-$ dfx canister --help
-```
-
-## Update dependencies
-
-update the `dependencies` block in `/src/{canister_name}/Cargo.toml`:
-```
-[dependencies]
-candid = "0.9.9"
-ic-cdk = "0.11.1"
-serde = { version = "1", features = ["derive"] }
-serde_json = "1.0"
-ic-stable-structures = { git = "https://github.com/lwshang/stable-structures.git", branch = "lwshang/update_cdk"}
-```
-
-## did autogenerate
-
-Add this script to the root directory of the project:
-```
-https://github.com/buildwithjuno/juno/blob/main/scripts/did.sh
-```
-
-Update line 16 with the name of your canister:
-```
-https://github.com/buildwithjuno/juno/blob/main/scripts/did.sh#L16
-```
-
-After this run this script to generate Candid.
-Important note!
-
-You should run this script each time you modify/add/remove exported functions of the canister.
-Otherwise, you'll have to modify the candid file manually.
-
-Also, you can add package json with this content:
-```
-{
-    "scripts": {
-        "generate": "./did.sh && dfx generate",
-        "gen-deploy": "./did.sh && dfx generate && dfx deploy -y"
-      }
-}
-```
-
-and use commands `npm run generate` to generate candid or `npm run gen-deploy` to generate candid and to deploy a canister.
 
 ## Running the project locally
 
@@ -78,8 +58,10 @@ If you want to test your project locally, you can use the following commands:
 
 ```bash
 # Starts the replica, running in the background
-$ dfx start --background
+dfx start --background
 
 # Deploys your canisters to the replica and generates your candid interface
-$ dfx deploy
+dfx deploy
 ```
+
+Once the job completes, your application will be available at `http://localhost:4943?canisterId={asset_canister_id}`.
