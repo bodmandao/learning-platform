@@ -133,7 +133,7 @@ fn check_lottery_ticket(id: u64) -> Result<LotteryTicket, LotteryError> {
 fn conduct_lottery_draw(winning_numbers: Vec<u32>) -> Result<LotteryDraw, LotteryError> {
     // Validate the winning numbers
     if winning_numbers.len() != 6 || winning_numbers.iter().any(|&num| num > 49 || num == 0) {
-        return Err(LotteryError::InvalidNumbers { msg: "Invalid winning numbers".to_string() });
+        return Err(LotteryError::InvalidNumbers { msg: "Invalid winning numbers. Please provide 6 unique numbers between 1 and 49.".to_string() });
     }
 
     let id = LOTTERY_DRAW_ID_COUNTER
@@ -153,6 +153,7 @@ fn conduct_lottery_draw(winning_numbers: Vec<u32>) -> Result<LotteryDraw, Lotter
     LOTTERY_DRAW_STORAGE.with(|m| m.borrow_mut().insert(id, draw.clone()));
     Ok(draw)
 }
+
 
 // Function to participate in a lottery draw
 #[ic_cdk::update]
