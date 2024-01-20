@@ -45,7 +45,7 @@ fn participate_in_lottery_draw(ticket_id: u64, draw_id: u64) -> Result<LotteryDr
 ```
 Example : 
 ```rust
-dfx canister call icp_rust_boilerplate_backend  participate_in_lottery_draw '(0, 2)'
+dfx canister call icp_rust_boilerplate_backend  participate_in_lottery_draw '(0, 0)'
 ```
 This function retrieves a list of all purchased lottery tickets.
 ```rust
