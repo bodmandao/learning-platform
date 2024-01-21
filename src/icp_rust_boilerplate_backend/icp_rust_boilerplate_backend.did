@@ -2,16 +2,19 @@ type LotteryDraw = record {
   id : nat64;
   participants : vec text;
   draw_time : nat64;
+  over : bool;
   winning_numbers : vec nat32;
 };
 type LotteryError = variant {
   InvalidNumbers : record { msg : text };
   NotFound : record { msg : text };
+  LotteryDrawOver;
 };
 type LotteryTicket = record {
   id : nat64;
   updated_at : opt nat64;
   owner : text;
+  lottery_draw_num : nat64;
   created_at : nat64;
   numbers : vec nat32;
 };
@@ -20,10 +23,10 @@ type Result_1 = variant { Ok : LotteryDraw; Err : LotteryError };
 type Result_2 = variant { Ok : vec LotteryDraw; Err : LotteryError };
 type Result_3 = variant { Ok : vec LotteryTicket; Err : LotteryError };
 service : {
-  buy_lottery_ticket : (text, vec nat32) -> (Result);
+  buy_lottery_ticket : (vec nat32, nat64) -> (Result);
   check_lottery_ticket : (nat64) -> (Result) query;
-  conduct_lottery_draw : (vec nat32) -> (Result_1);
+  conduct_lottery_draw : (nat64) -> (Result_1);
+  create_lottery_draw : () -> (Result_1);
   get_all_lottery_draws : () -> (Result_2) query;
   get_all_lottery_tickets : () -> (Result_3) query;
-  participate_in_lottery_draw : (nat64, nat64) -> (Result_1);
 }
