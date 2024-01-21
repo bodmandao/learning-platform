@@ -173,6 +173,7 @@ fn create_lottery_draw() -> Result<LotteryDraw, LotteryError> {
     LOTTERY_DRAW_STORAGE.with(|m| m.borrow_mut().insert(id, draw.clone()));
     Ok(draw)
 }
+
 // Function to conduct a lottery draw
 #[ic_cdk::update]
 async fn conduct_lottery_draw(draw_id: u64) -> Result<LotteryDraw, LotteryError> {
